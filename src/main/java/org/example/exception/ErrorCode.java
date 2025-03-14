@@ -6,9 +6,19 @@ import lombok.Getter;
 // 에러코드를 정의해주고 에러 코드의 기본이 되는 메시지를 property로 담아준다.
 @AllArgsConstructor
 @Getter
-public enum LoginErrorCode {
+public enum ErrorCode {
 
     DUPLICATE_LOGIN_ID("로그인 ID 중복 오류"),
-    DUPLICATE_EMAIL("이메일 중복 오류");
+    DUPLICATE_EMAIL("이메일 중복 오류"),
+    INVALID_PASSWORD("유효하지 않은 비밀번호입니다."),
+    INVALID_BIRTH_YEAR("출생년도는 1900년 이후, 현재 연도 이전이어야 합니다."),
+    AGE_VALIDATION_FAILED("14세 인증 여부가 다릅니다."),
+    INVALID_VERIFICATION_CODE("인증 코드가 일치하지 않습니다."),
+
+    // 403 Forbidden - 인증되지 않은 접근
+    EMAIL_NOT_VERIFIED("이메일 인증이 완료되지 않았습니다."),
+    INTERNAL_SERVER_ERROR("서버에 오류가 발생했습니다"), // 진짜 알 수 없는 에러가 발생했을 때
+    INVALID_REQUEST("잘못된 요청입니다.");
+
     private final String message;
 }

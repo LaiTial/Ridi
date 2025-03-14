@@ -1,15 +1,30 @@
+# Naver smtp server 사용
+
 spring:
-  h2:
-    console:
-      enabled: true
   mail:
-    host: smtp.naver.com
-    port: 465
-    username: alcodsa@naver.com
-    password: radixpop724##
+    host: smtp.naver.com        #smtp 서버 주소
+    port: 465                   #메일 인증서버 포트
+    username: alcodsa@naver.com #네이버 아이디
+    password: radixpop724##     #네이버 비밀번호
     properties:
       mail:
         smtp:
-          auth: true
+          auth: true # 이메일 보내기 전에 SMTP 서버에서 인증을 요구
           ssl:
-            enable: true
+            enable: true # SSL 필요라 설정 필요.
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver    # MySQL 드라이버 클래스를 지정
+    url : jdbc:mysql://localhost:3306/ridi?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true    # MySQL 데이터베이스의 URL 지정
+    username: root  # MySQL 사용자 계정명
+    password: root  # 해당 사용자 계정의 비밀번호
+    hikari:
+      maximum-pool-size: 10    # 최대 연결 풀 크기를 10으로 설정
+      minimum-idle: 5          # 최소 유휴 연결 수를 5로 설정
+  jpa:
+    hibernate:
+      ddl-auto: validate # 현재 테이블과 JPA 구성이 일치하는 지 확인만 한다
+    properties:
+      hibernate:
+        show_sql: true # SQL 쿼리들을 콘솔에 출력
+        format_sql: true # 쿼리가 가독성 좋게 포맷

@@ -1,4 +1,5 @@
 package org.example.dto;
 
-public interface BaseDTO {
+public interface ValidationCheck {
+    void check();
 }
