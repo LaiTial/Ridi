@@ -56,7 +56,6 @@ CREATE TABLE `agreement` (
 -- `verification` 테이블: 이메일 인증 코드 저장
 -- 이 테이블은 이메일 인증을 위한 코드(`verification_code`)와 관련된 생성일자(`created_at`), 수정일자(`updated_at`) 등을 관리.
 CREATE TABLE `verification` (
-CREATE TABLE `verification` (
    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '고유 ID',
    `created_at` datetime(6) DEFAULT NULL COMMENT '생성일자',
    `updated_at` datetime(6) DEFAULT NULL COMMENT '수정일자',

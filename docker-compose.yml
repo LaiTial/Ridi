@@ -5,7 +5,7 @@ services:
     restart: always                    # 서버가 재부팅될 때 자동으로 MySQL 컨테이너가 실행
     environment:
       MYSQL_ROOT_PASSWORD: root         # root 계정 비밀번호
-      MYSQL_DATABASE: database              # 자동으로 생성될 데이터베이스
+      MYSQL_DATABASE: datapase          # 자동으로 생성될 데이터베이스
       MYSQL_USER: user                  # 일반 사용자 계정
       MYSQL_PASSWORD: password          # 일반 사용자 계정 비밀번호
     ports:
@@ -13,6 +13,17 @@ services:
     volumes:
       - db-data:/var/lib/mysql          # 컨테이너에서 사용할 볼륨 지정
                                         # MySQL 데이터 저장 경로인 /var/lib/mysql에 마운트하며, 이 장소에 데이터가 저장, 컨테이너를 삭제하거나 재시작하더라도 데이터를 유지!
+
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
 volumes:
   db-data: # 도커가 이 볼륨을 사용할 수 있도록 선언 (필수)
   redis-data:

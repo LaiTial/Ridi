@@ -11,7 +11,6 @@ import org.example.repository.AgreementRepository;
 import org.example.repository.TermRepository;
 import org.example.repository.UserRepository;
 import org.example.type.EmailVerifiedStatus;
-import org.example.type.TermType;
 import org.example.utils.EmailService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +27,7 @@ public class LoginService {
     private final AgreementRepository agreementRepository;
     private final UserRepository userRepository;
     private final VerificationService verificationService;
+    private final PasswordService passwordService;
 
     // 이메일 사용을 위한 설정
     private final EmailService emailService;
@@ -58,7 +58,7 @@ public class LoginService {
         // 1. 사용자 정보 저장
         Users users = Users.builder()
                 .loginId(userDTO.getLoginId())
-                .password(userDTO.getPassword())
+                .password(passwordService.hashPassword(userDTO.getPassword())) // 비밀번호 인코딩시킨 후 저장
                 .email(userDTO.getEmail())
                 .name(userDTO.getName())
                 .birthYear(userDTO.getBirthYear())

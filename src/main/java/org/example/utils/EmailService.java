@@ -1,7 +1,6 @@
 package org.example.utils;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ public class EmailService {
 
     public void sendVerificationEmail(String email, String verificationCode) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("alcodsa@naver.com");
+        message.setFrom("sample@naver.com");
         message.setTo(email);
         message.setSubject("이메일 인증 코드");
         message.setText("인증 코드: " + verificationCode);
