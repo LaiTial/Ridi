@@ -26,8 +26,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail' // 스프링에서 이메일 전송을 위한 라이브러리
 
     implementation 'mysql:mysql-connector-java' // docker의 mysql과 연결을 위한 라이브러리
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis' // docker의 Redis과 연결을 위한 라이브러리
-
     implementation 'org.springframework.boot:spring-boot-starter-security' // 스프링 시큐리티 사용을 위한 라이브러리
 
     // lombok을 위한 의존성 추가
