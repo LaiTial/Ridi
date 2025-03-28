@@ -6,6 +6,7 @@ spring:
     port: 465                   #메일 인증서버 포트
     username: sample@naver.com  #네이버 아이디
     password: password          #네이버 비밀번호
+    from : sample@naver.com
     properties:
       mail:
         smtp:
@@ -31,3 +32,17 @@ spring:
   redis:
     host: localhost   # 이 컴퓨터와 연결
     port: 6379        # 포트 번호는 6379
+  application:
+    name: RiDi        # 앱 이름 설정
+  cloud:
+    vault:
+      uri: http://localhost:8200  # Vault 서버 주소
+      scheme: http                # 개발 버전으로 올릴거라 https가 아닌 http
+      authentication: token       # 토큰 방식 인증 사용
+      token: root                 # Vault 개발 모드에서 사용한 루트 토큰
+      kv:
+        enabled: true  # Key-Value 스토리지 엔진 사용 설정
+        backend: secret  # Vault의 secret 엔진 이름 (기본값은 secret)
+        default-context: RiDi
+    config:
+      import: vault:// # vault를 쓰겠다는 명시적인 표현 필요

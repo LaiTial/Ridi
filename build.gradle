@@ -13,6 +13,10 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('springCloudVersion', "2024.0.1") // 원하는 Spring Cloud 버전으로 설정
+}
+
 // dependencies에 프로젝트에 필요한 의존성 추가
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA 구현을 위한 라이브러리
@@ -25,6 +29,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-security' // 스프링 시큐리티 사용을 위한 라이브러리
     implementation 'io.jsonwebtoken:jjwt:0.12.3'  // JWT 토큰 사용을 위한 라이브러리
+    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config' // cloud vault 사용을 위한 라이브러리
 
     // lombok을 위한 의존성 추가
     compileOnly 'org.projectlombok:lombok'
@@ -33,6 +38,12 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test' // Test 관련 기능들을 사용하기 위한 라이브러리
 }
 
-test {
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
     useJUnitPlatform()
 }

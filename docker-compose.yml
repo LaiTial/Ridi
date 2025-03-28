@@ -5,7 +5,7 @@ services:
     restart: always                    # 서버가 재부팅될 때 자동으로 MySQL 컨테이너가 실행
     environment:
       MYSQL_ROOT_PASSWORD: root         # root 계정 비밀번호
-      MYSQL_DATABASE: database          # 자동으로 생성될 데이터베이스
+      MYSQL_DATABASE: ridi              # 자동으로 생성될 데이터베이스
       MYSQL_USER: user                  # 일반 사용자 계정
       MYSQL_PASSWORD: password          # 일반 사용자 계정 비밀번호
     ports:
@@ -21,9 +21,23 @@ services:
       - "6379:6379"                     # 6379 포트를 사용
     networks:
       - spring-redis-network            # spring-redis-network 네트워크에 연결하여 Spring과 통신 가능
+  vault:
+    image: hashicorp/vault:latest                  # HashiCorp Vault의 최신 Docker 이미지를 사용
+    container_name: vault               # 컨테이너 이름을 vault로 설정
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=root                  # 루트 토큰을 root로 설정
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200         # 모든 IP에서 8200 포트로 수신 대기하도록 설정
+    ports:
+      - "8200:8200"                      # 8200 포트를 사용
+    volumes:
+      - vault-data:/vault/file           # 컨테이너에서 사용할 볼륨 지정
+    restart: unless-stopped              # 컨테이너가 종료되었을 때 자동으로 재시작
+    cap_add:
+      - IPC_LOCK                         # 메모리 잠금을 사용할 수 있도록 IPC_LOCK 권한을 추가
 networks:
   spring-redis-network:                 # Docker 네트워크를 생성
     driver: bridge                      # bridge 네트워크를 사용하여 컨테이너 간 통신
-volumes:
-  db-data: # 도커가 이 볼륨을 사용할 수 있도록 선언 (필수)
+volumes: # 도커가 이 볼륨을 사용할 수 있도록 선언 (필수)
+  db-data:
   redis-data:
+  vault-data:
