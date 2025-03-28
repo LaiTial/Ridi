@@ -18,4 +18,8 @@ public interface UserRepository extends
 
     // 이메일로 해당하는 회원 정보 찾기
     Optional<Users> findByEmail(String email);
+
+    // 로그인 ID를 기준으로 사용자를 찾는 메서드
+    // loginID를 기준으로 사용자 조회
+    Optional<Users> findByLoginId(String loginId);
 }

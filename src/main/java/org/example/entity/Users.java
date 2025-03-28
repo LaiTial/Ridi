@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.example.type.EmailVerifiedStatus;
 import org.example.type.Gender;
+import org.example.type.Role;
 
 @Getter
 @Setter
@@ -35,6 +36,10 @@ public class Users extends Base{
     @Column(nullable = false)
     @Enumerated(EnumType.STRING) // Enum을 문자열로 저장
     private EmailVerifiedStatus emailVerified; // 이메일 인증 여부
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role; // 사용자 권한(유저, 관리자)
 
     private Integer birthYear; // 생년월일
 }

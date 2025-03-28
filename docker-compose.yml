@@ -1,11 +1,11 @@
 services:
   mysql:
-    image: mysql:8.0                   # 사용할 Docker 이미지를 지정
+    image: mysql:8.0                   # 사용할 Docker의 MySQL 이미지를 지정
     container_name: mysql_container    # 생성할 컨테이너의 이름을 지정
     restart: always                    # 서버가 재부팅될 때 자동으로 MySQL 컨테이너가 실행
     environment:
       MYSQL_ROOT_PASSWORD: root         # root 계정 비밀번호
-      MYSQL_DATABASE: datapase          # 자동으로 생성될 데이터베이스
+      MYSQL_DATABASE: database          # 자동으로 생성될 데이터베이스
       MYSQL_USER: user                  # 일반 사용자 계정
       MYSQL_PASSWORD: password          # 일반 사용자 계정 비밀번호
     ports:
@@ -13,17 +13,17 @@ services:
     volumes:
       - db-data:/var/lib/mysql          # 컨테이너에서 사용할 볼륨 지정
                                         # MySQL 데이터 저장 경로인 /var/lib/mysql에 마운트하며, 이 장소에 데이터가 저장, 컨테이너를 삭제하거나 재시작하더라도 데이터를 유지!
-
   redis:
-    image: redis:latest
-    container_name: redis_container
-    restart: always
+    image: redis:latest                 # 최신 Redis 이미지를 사용하여 컨테이너 실행
+    container_name: redis-container     # 컨테이너 이름을 redis-container로 설정
+    restart: always                     # 컨테이너가 중지되더라도 항상 다시 시작
     ports:
-      - "6379:6379"
-    volumes:
-      - redis-data:/data
-    command: redis-server --appendonly yes
-
+      - "6379:6379"                     # 6379 포트를 사용
+    networks:
+      - spring-redis-network            # spring-redis-network 네트워크에 연결하여 Spring과 통신 가능
+networks:
+  spring-redis-network:                 # Docker 네트워크를 생성
+    driver: bridge                      # bridge 네트워크를 사용하여 컨테이너 간 통신
 volumes:
   db-data: # 도커가 이 볼륨을 사용할 수 있도록 선언 (필수)
   redis-data:

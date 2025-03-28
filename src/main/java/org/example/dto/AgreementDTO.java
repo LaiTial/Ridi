@@ -2,7 +2,6 @@ package org.example.dto;
 
 import lombok.*;
 import org.example.entity.Agreement;
-import org.example.entity.Term;
 import org.example.entity.TermVersionKey;
 import org.example.entity.UserAgreementKey;
 import org.example.type.TermType;

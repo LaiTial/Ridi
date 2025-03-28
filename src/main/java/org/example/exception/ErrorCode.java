@@ -18,7 +18,11 @@ public enum ErrorCode {
     // 403 Forbidden - 인증되지 않은 접근
     EMAIL_NOT_VERIFIED("이메일 인증이 완료되지 않았습니다."),
     INTERNAL_SERVER_ERROR("서버에 오류가 발생했습니다"), // 진짜 알 수 없는 에러가 발생했을 때
-    INVALID_REQUEST("잘못된 요청입니다.");
+    INVALID_REQUEST("잘못된 요청입니다."),
+
+    USER_NOT_FOUND("해당되는 유저를 찾을 수 없습니다"),
+    PASSWORD_MISMATCH("패스워드가 일치하지 않습니다."),
+    UNAUTHORIZED_INVALID_TOKEN("유효하지 않은 JWT 토큰입니다");
 
     private final String message;
 }

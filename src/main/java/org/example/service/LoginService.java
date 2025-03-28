@@ -10,7 +10,9 @@ import org.example.exception.RidiException;
 import org.example.repository.AgreementRepository;
 import org.example.repository.TermRepository;
 import org.example.repository.UserRepository;
+import org.example.security.JwtAuthenticationFilter;
 import org.example.type.EmailVerifiedStatus;
+import org.example.type.Role;
 import org.example.utils.EmailService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +66,7 @@ public class LoginService {
                 .birthYear(userDTO.getBirthYear())
                 .gender(userDTO.getGender())
                 .emailVerified(EmailVerifiedStatus.UNVERIFIED) // 기본적으로 인증되지 않은 사용자 설정
+                .role(Role.USER) // 유저로 설정
                 .build();
 
         userRepository.save(users); // 회원 테이블에 정보 저장

@@ -4,7 +4,7 @@ spring:
   mail:
     host: smtp.naver.com        #smtp 서버 주소
     port: 465                   #메일 인증서버 포트
-    username: sample@naver.com #네이버 아이디
+    username: sample@naver.com  #네이버 아이디
     password: password          #네이버 비밀번호
     properties:
       mail:
@@ -23,8 +23,11 @@ spring:
       minimum-idle: 5          # 최소 유휴 연결 수를 5로 설정
   jpa:
     hibernate:
-      ddl-auto: validate # 현재 테이블과 JPA 구성이 일치하는 지 확인만 한다
+      ddl-auto: update # validate : 현재 테이블과 JPA 구성이 일치하는 지 확인만 한다
     properties:
       hibernate:
         show_sql: true # SQL 쿼리들을 콘솔에 출력
         format_sql: true # 쿼리가 가독성 좋게 포맷
+  redis:
+    host: localhost   # 이 컴퓨터와 연결
+    port: 6379        # 포트 번호는 6379
