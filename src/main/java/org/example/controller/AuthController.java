@@ -25,7 +25,7 @@ public class AuthController {
     @GetMapping("/auth/logout")
     public void logout(@RequestHeader("Authorization") String authorizationHeader) { // 쿼리 스트링으로 중복 체크할 id 받는다.
         authenticationService.logout(authorizationHeader); // 로그아웃
-    }
+    } // 객체 자체가 Authorization 인게 있다 그럼 객체 자체를 넣어준다. 스프링 시큐리티가 넣어줌.
 
     // 인증되는지 테스팅
     @GetMapping("/test")

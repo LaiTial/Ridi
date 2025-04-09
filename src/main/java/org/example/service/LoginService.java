@@ -75,7 +75,7 @@ public class LoginService {
         List<Agreement> agreements = userDTO.getAgreed()
                 .stream()
                 .map(agreementDTO -> AgreementDTO.fromEntity(agreementDTO, userDTO.getLoginId())) // 각 약관 Agreement Entity로 매핑
-                .collect(Collectors.toList()); // 최종적으로 데이터를 모아서 원하는 형태(List, Set, Map 등)로 변환
+                .collect(Collectors.toList()); // 최종적으로 데이터를 모아서 원하는 형태(List, Set, Map 등)로 변환*/
 
         agreementRepository.saveAll(agreements); // 회원 테이블에 정보 저장
 
@@ -94,15 +94,6 @@ public class LoginService {
         if(userRepository.existsByEmail(userDTO.getEmail())) {
             throw new RidiException(ErrorCode.DUPLICATE_EMAIL); // 중복된 email입니다.
         }
-    }
-
-    public Agreement createAgreement(Term term, String loginId) {
-        TermVersionKey termVersionKey = new TermVersionKey(term.getTermVersionKey().getVersion(), term.getTermVersionKey().getTitle());
-        UserAgreementKey userAgreementKey = new UserAgreementKey(loginId, termVersionKey);
-
-        return Agreement.builder()
-                .userAgreementKey(userAgreementKey)
-                .build();
     }
 
 }

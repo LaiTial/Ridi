@@ -10,11 +10,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailService {
 
-    @Value("${spring.mail.from}")
+    @Value("${spring.mail.from}") // 설정에서 가져와 주입
     private String fromAddress;
     private final JavaMailSender mailSender; // 스프링 이메일 전송기
 
     public void sendVerificationEmail(String email, String verificationCode) {
+
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromAddress);
         message.setTo(email);

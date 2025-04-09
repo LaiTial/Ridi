@@ -20,7 +20,12 @@ public class RedisService {
 
     // 데이터 조회
     public String getData(String key) {
+
+        // Optional로 반환하도록.
+        // null 체크 강제하게끔.
+        //if(redisTemplate.opsForValue().get(key) != null) {
         return (String) redisTemplate.opsForValue().get(key);
+
     }
 
     // 데이터 삭제

@@ -58,10 +58,3 @@
 - `Redis`에 저장된 `ID`별 `JWT` 토큰 삭제
 
 ## 주요 변경 사항들
-- Spring Boot 버전 업그레이드 : `'3.0.2'` -> `'3.4.4'`
-- Spring dependency-management 버전 업그레이드 : `'1.1.0'` -> `'1.1.7'`
-- `MySQL` 연동 방법 변경(버전 업그레이드로 인해)
-- User 테이블에 `Role`로 사용자 권한 컬럼 추가
-- `Spring Security` 사용, `JWT` 토큰을 이용한 로그인 기능 구현
-- 이메일 인증 번호 방식을 `DB` -> `Redis`로 변경
-- 발급한 JWT 토큰을 `Redis`에 저장해두는 것으로 로그아웃 기능 구현

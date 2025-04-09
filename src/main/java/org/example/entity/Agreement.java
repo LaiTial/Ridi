@@ -1,7 +1,6 @@
 package org.example.entity;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -12,7 +11,6 @@ import lombok.*;
 @Builder
 public class Agreement extends Base{ // Base 상속받아서 JPA Auditing 구현
 
-    // UserID와 termVersion 묶어서 복합키로.
     @EmbeddedId
     private UserAgreementKey userAgreementKey; // 사용자ID, (약관 버전, 약관 제목)
 

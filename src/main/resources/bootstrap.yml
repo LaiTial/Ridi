@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: RiDi  # Vault에서 secret/RiDi 경로를 바라보게 됨
+  cloud:
+    vault:
+      uri: http://localhost:8200 # Vault 서버 주소
+      scheme: http # 개발 버전으로 올릴거라 https가 아닌 http
+      authentication: token # 토큰 방식 인증 사용
+      token: root # Vault 개발 모드에서 사용한 루트 토큰
+      kv:
+        enabled: true
+        backend: secret
+        application-name: RiDi

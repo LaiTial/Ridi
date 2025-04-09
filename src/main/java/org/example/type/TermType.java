@@ -1,7 +1,10 @@
 package org.example.type;
 
-import org.example.dto.UserDTO;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
 public enum TermType {
 
     TERMS_AGREEMENT("이용 약관", "termsAgreement"),
@@ -11,18 +14,4 @@ public enum TermType {
 
     private final String title;  // 약관 제목
     private final String fieldName;  // 동의 여부 필드 이름 (DTO와 일치)
-
-    TermType(String title, String fieldName) {
-        this.title = title;
-        this.fieldName = fieldName;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getFieldName() {
-        return fieldName;
-    }
-
 }
