@@ -1,17 +1,13 @@
 package org.example.service;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.LoginDTO;
 import org.example.entity.Users;
 import org.example.exception.ErrorCode;
 import org.example.exception.RidiException;
 import org.example.repository.UserRepository;
-import org.example.security.JwtAuthenticationFilter;
 import org.example.security.JwtTokenProvider;
 import org.example.type.EmailVerifiedStatus;
-import org.example.type.RequiredStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

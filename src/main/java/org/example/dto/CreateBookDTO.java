@@ -1,6 +1,7 @@
 package org.example.dto;
 
 import lombok.*;
+import org.example.type.SerialStatus;
 
 import java.time.LocalDate;
 
@@ -12,13 +13,12 @@ import java.time.LocalDate;
 @Data
 public class CreateBookDTO {
 
-    private String title;  // 책 이름
-    private String contentCategory;  // 컨텐츠 카테고리 (웹툰, 만화, 웹소설, 도서)
-    private String genre;  // 책 장르 (로맨스, 로판, 판타지, BL)
-    private String author;  // 작가
-    private String publisher;  // 출판사
-    private String ImageUrl;  // 표지 (링크)
-    private String isbn;  // ISBN
-    private String description;  // 책 소개
-    private Integer wishlistCount; // 관심작으로 등록한 사람 수
+    private String title;             // 책 제목
+    private Long categoryId;          // 카테고리 ID
+    private String author;            // 작가
+    private String publisher;         // 출판사
+    private String imageUrl;          // 표지 (URL)
+    private String isbn;              // ISBN
+    private String description;       // 책 소개
+    private SerialStatus status;      // 연재 상태 (SERIAL / COMPLETED)
 }

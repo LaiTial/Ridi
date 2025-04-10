@@ -22,7 +22,7 @@ public class Book extends Base{
     private String title;  // 책 이름
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category")
     private Category category; // 책의 카테고리 목록
 
     @ManyToOne
