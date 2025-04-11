@@ -22,7 +22,11 @@ public enum ErrorCode {
 
     USER_NOT_FOUND("해당되는 유저를 찾을 수 없습니다"),
     PASSWORD_MISMATCH("패스워드가 일치하지 않습니다."),
-    UNAUTHORIZED_INVALID_TOKEN("유효하지 않은 JWT 토큰입니다");
+    UNAUTHORIZED_INVALID_TOKEN("유효하지 않은 JWT 토큰입니다"),
+
+    CATEGORY_NOT_FOUND("해당 이름의 카테고리를 찾을 수 없습니다."),
+    AUTHOR_NOT_FOUND("해당 필명의 작가를 찾을 수 없습니다."),
+    PUBLISHER_NOT_FOUND("해당 이름의 출판사를 찾을 수 없습니다.");
 
     private final String message;
 }

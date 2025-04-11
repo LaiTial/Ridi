@@ -41,7 +41,7 @@
 - 사용자 이메일에 `email`과 `인증코드`로 메일 보내기
 
 ### 이메일 전송 기능
-- 사용자가 입력한 `email`과 `인증코드`를 DB 조회
+- 사용자가 입력한 `email`과 `인증코드`를 Redis 조회
 - 맞을 시 사용자 이메일 `UNVERIFIED`에서 `VERIFIED`로 변경
 - `My SQL 스케줄러`로 1시간 간격마다 인증되지 않은 사용자, 동의 여부 삭제
 
@@ -49,7 +49,7 @@
 - DB에 저장된 `ID`와 `Password`와 맞는지 검증
 - 이메일이 `VERIFIED` 상태인지 검증
 - `JWT` 토큰 생성해 `Redis`에 저장한 후, 사용자에게 전달
-- 사용자가 다른 페이지 접속 시 `JWT` 토큰으로 유효성 검사
+- 사용자가 페이지 접속 시 `JWT` 토큰으로 유효성 검사
 - 발급한 JWT 토큰이 `Redis`에 사용 가능한 상태이고 인증을 통과하면 접근 가능
 - 이를 `Spring Security`에 `JWT` 필터 등록해 자동화
 
@@ -57,4 +57,30 @@
 - `JWT` 토큰에서 사용자 ID 얻어오기
 - `Redis`에 저장된 `ID`별 `JWT` 토큰 삭제
 
+### 카테고리 기능
+- 상위 카테고리와 하위 카테고리 간의 `계층 관계`를 지원
+- 하위 카테고리를 포함한 `전체 트리 구조` 조회 가능
+
+### 작가 (Author) 기능
+
+- 새로운 `작가 (Author)` 생성
+
+### 출판사 (Publisher) 기능
+
+- 출판사 `이름(name)`으로 등록
+
+### 책(Book) 기능
+
+- 새로운 책 등록 기능 : `Category` 이름, `Author` 필명, `Publisher` 이름으로 연관 엔티티 조회 및 설정
+_ 단행본과 연재본처럼 동일 ISBN이지만 구분이 필요한 경우 `SerialStatus(연재/완결)` 필드로 구분_
+- `imageUrl`, `description`, `wishlistCount`, `rating` 등 추가 정보도 함께 저장
+
+
 ## 주요 변경 사항들
+- Vault 서버로 민감한 정보 암호화
+- Redis 조회 시 오류를 막기 위해 `Optional`로 `null`값 체크
+- 카테고리 기능으로 `상위 카테고리`, `하위 카테고리` 계층화
+- 새로운 Author `Create` 기능 추가
+- 새로운 Publisher `Create` 기능 추가
+- 새로운 Book `Create` 기능 추가
+- `Rating`(별점)과 `Review`(리뷰) Entity 생성

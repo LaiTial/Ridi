@@ -20,7 +20,7 @@ public class PublisherService {
     public void createPublisher(PublisherDTO publisherDTO) {
         Publisher publisher = Publisher.builder()
                 .name(publisherDTO.getName())
-                .books(new ArrayList<>()) // book 리스트 초기화
+                .books(new ArrayList<>()) // 책 목록 초기화
                 .build();
 
         publisherRepository.save(publisher); // 새로운 작가 정보 저장

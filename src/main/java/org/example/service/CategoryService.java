@@ -3,11 +3,11 @@ package org.example.service;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.CategoryDTO;
 import org.example.entity.Category;
+import org.example.exception.ErrorCode;
+import org.example.exception.RidiException;
 import org.example.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +23,7 @@ public class CategoryService {
         // 상위 카테고리가 지정된 경우, 해당 카테고리를 조회
         if (categoryDTO.getParentName() != null) {
             parent = categoryRepository.findByName(categoryDTO.getParentName())
-                    .orElseThrow(() -> new IllegalArgumentException("해당 이름의 부모 카테고리가 존재하지 않습니다."));
+                    .orElseThrow(() -> new RidiException(ErrorCode.CATEGORY_NOT_FOUND));
         }
 
         // 새 카테고리 생성
