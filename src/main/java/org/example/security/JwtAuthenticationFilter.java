@@ -35,7 +35,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 1. 사용자에게 발급한 JWT 토큰이 맞는지 검증
             String username = jwtTokenProvider.getUsername(token);
-            if(!token.equals(redisService.getData(username))) {
+
+            if (!redisService.getData(username)
+                    .map(redisToken -> redisToken.equals(token))
+                    .orElse(false)) {
                 throw new RidiException(ErrorCode.UNAUTHORIZED_INVALID_TOKEN); // 만료된 JWT 토큰
             }
 

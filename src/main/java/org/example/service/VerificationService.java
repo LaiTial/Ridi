@@ -35,7 +35,9 @@ public class VerificationService {
     public void checkVerificationCode(String verifyCode, String email) {
 
         // 1. 이메일과 인증코드가 맞지 않으면 Error
-        if(!redisService.getData(email).equals(verifyCode)) {
+        if (!redisService.getData(email)
+                .map(code -> code.equals(verifyCode)) // 일치 여부 판단
+                .orElse(false)) {
             throw new RidiException(ErrorCode.INVALID_VERIFICATION_CODE); // 인증코드가 일치하지 않음.
         }
 

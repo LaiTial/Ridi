@@ -24,7 +24,7 @@ public class BookService {
     private final CategoryRepository categoryRepository;
     private final PublisherRepository publisherRepository;
 
-    // 책을 만들어 넣는 서비스
+    // 새로운 책 DB에 추가
     @Transactional
     public void createBook(CreateBookDTO createBookDTO) {
 
