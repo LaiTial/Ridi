@@ -4,6 +4,7 @@ import lombok.*;
 import org.example.type.SerialStatus;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,5 @@ public class CreateBookDTO {
     private String isbn;              // ISBN
     private String description;       // 책 소개
     private SerialStatus status;      // 연재 상태 (SERIAL / COMPLETED)
+    private List<String> keywords;    // 키워드 목록
 }

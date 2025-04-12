@@ -2,6 +2,7 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.type.PublicationStatus;
 import org.example.type.SerialStatus;
 
 import java.util.List;
@@ -52,11 +53,20 @@ public class Book extends Base{
     @Column(nullable = false)
     private SerialStatus status; // 연재 or 완결
 
+    @Column(nullable = false)
+    private PublicationStatus publicationStatus; // 출간중 or 중단
+
     // ✅ mappedBy에 들어가는 건 "필드명"!
     @OneToMany(mappedBy = "books", cascade = CascadeType.ALL, orphanRemoval = true) // ✅ 일대다 관계
     private List<Review> reviews;  // 책에 대한 리뷰 목록
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookKeyword> bookKeywords; // 책에 대한 키워드 목록
+
+    public void addBookKeyword(BookKeyword bookKeyword) {
+        this.bookKeywords.add(bookKeyword);
+    }
 }
 // QueryDSL을 이용해 검색 기능 구현
 // 페이징 처리
-// 카테고리 API
-// 키워드 구성
+

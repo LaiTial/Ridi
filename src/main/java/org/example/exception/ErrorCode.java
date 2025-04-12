@@ -26,7 +26,8 @@ public enum ErrorCode {
 
     CATEGORY_NOT_FOUND("해당 이름의 카테고리를 찾을 수 없습니다."),
     AUTHOR_NOT_FOUND("해당 필명의 작가를 찾을 수 없습니다."),
-    PUBLISHER_NOT_FOUND("해당 이름의 출판사를 찾을 수 없습니다.");
+    PUBLISHER_NOT_FOUND("해당 이름의 출판사를 찾을 수 없습니다."),
+    KEYWORD_NOT_FOUND("해당하는 키워드를 찾을 수 없습니다.");
 
     private final String message;
 }

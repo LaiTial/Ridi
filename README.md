@@ -75,12 +75,14 @@
 _ 단행본과 연재본처럼 동일 ISBN이지만 구분이 필요한 경우 `SerialStatus(연재/완결)` 필드로 구분_
 - `imageUrl`, `description`, `wishlistCount`, `rating` 등 추가 정보도 함께 저장
 
+### 키워드(Keyword) 기능
+- 책 <->키워드 M:M 매핑
+- 카테고리<->키워드 M:M 매핑
+- 카테고리 별로 키워드 목록 반환
+- QueryDSL로 키워드 검색 기능 추가
 
 ## 주요 변경 사항들
-- Vault 서버로 민감한 정보 암호화
-- Redis 조회 시 오류를 막기 위해 `Optional`로 `null`값 체크
-- 카테고리 기능으로 `상위 카테고리`, `하위 카테고리` 계층화
-- 새로운 Author `Create` 기능 추가
-- 새로운 Publisher `Create` 기능 추가
-- 새로운 Book `Create` 기능 추가
-- `Rating`(별점)과 `Review`(리뷰) Entity 생성
+- 키워드 기능 추가
+- 책 <->키워드 M:M 매핑, 카테고리<->키워드 M:M 매핑
+- 카테고리 별로 키워드 목록 반환
+- QueryDSL로 키워드 검색 기능 추가
