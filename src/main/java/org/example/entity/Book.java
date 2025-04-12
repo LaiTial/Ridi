@@ -63,8 +63,17 @@ public class Book extends Base{
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookKeyword> bookKeywords; // 책에 대한 키워드 목록
 
+
+    // 리뷰 목록 추가
+    public void addReview(Review review) {
+        this.reviews.add(review); // 책의 리뷰 목록에 추가
+        review.setBooks(this); // 주인 쪽(BookKeyword)도 설정!
+    }
+
+    // 키워드 목록 추가
     public void addBookKeyword(BookKeyword bookKeyword) {
-        this.bookKeywords.add(bookKeyword);
+        this.bookKeywords.add(bookKeyword); // 책의 키워드 리스트에 추가
+        bookKeyword.setBook(this); // 주인 쪽(BookKeyword)도 설정!
     }
 }
 // QueryDSL을 이용해 검색 기능 구현

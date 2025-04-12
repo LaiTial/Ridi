@@ -24,4 +24,10 @@ public class Publisher extends Base{
     @JsonIgnore // 무한 참조 막기
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval = true) // 기본이 LAZY
     private List<Book> books; // 출판사 별로 책 조회
+
+    // 책 목록에 추가
+    public void addBook(Book book) {
+        this.books.add(book);
+        book.setPublisher(this); // 주인 쪽(BookKeyword)도 설정!
+    }
 }

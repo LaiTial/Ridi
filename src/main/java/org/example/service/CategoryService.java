@@ -17,14 +17,15 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
+    // 새로운 카테고리를 생성하는 API
     @Transactional
     public void createCategory(CategoryDTO categoryDTO) {
 
         Category parent = null;
 
         // 상위 카테고리가 지정된 경우, 해당 카테고리를 조회
-        if (categoryDTO.getParentName() != null) {
-            parent = categoryRepository.findByName(categoryDTO.getParentName())
+        if (categoryDTO.getParentID() != null) {
+            parent = categoryRepository.findById(categoryDTO.getParentID())
                     .orElseThrow(() -> new RidiException(ErrorCode.CATEGORY_NOT_FOUND));
         }
 

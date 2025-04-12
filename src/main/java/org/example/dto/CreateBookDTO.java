@@ -15,7 +15,7 @@ import java.util.List;
 public class CreateBookDTO {
 
     private String title;             // 책 제목
-    private String category;          // 카테고리 이름
+    private Long category;            // 카테고리 ID
     private String author;            // 작가
     private String publisher;         // 출판사
     private String imageUrl;          // 표지 (URL)

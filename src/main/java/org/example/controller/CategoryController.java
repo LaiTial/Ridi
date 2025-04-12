@@ -26,9 +26,9 @@ public class CategoryController {
     }
 
     // 카테고리 별 키워드 목록 반환 API
-    @GetMapping("/category/name")
-    public Map<String, List<SectionKeywordListDTO>> getKeywordsByCategoryName(@RequestParam String category) {
-        return keywordService.getKeywordsByCategoryName(category);
+    @GetMapping("/keywords/by-category")
+    public Map<String, List<SectionKeywordListDTO>> getKeywordsByCategoryName(@RequestParam Long id) {
+        return keywordService.getKeywordsByCategory(id);
     }
 
 }

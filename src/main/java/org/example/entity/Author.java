@@ -28,4 +28,10 @@ public class Author extends Base{
     @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> books; // 작가 별로 책 조회
+
+    // 책 목록에 추가
+    public void addBook(Book book) {
+        this.books.add(book);
+        book.setAuthor(this); // 주인 쪽(BookKeyword)도 설정!
+    }
 }

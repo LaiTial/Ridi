@@ -33,13 +33,6 @@ public class BookDTO {
             return null;
         }
 
-        // 키워드 목록 변환 (예시: BookKeyword의 keyword에서 name을 가져오는 방식)
-        if (book.getBookKeywords() != null) {
-            List<String> keywords = book.getBookKeywords().stream()
-                    .map(bookKeyword -> bookKeyword.getKeyword() != null ? bookKeyword.getKeyword().getName() : null)
-                    .toList();
-        }
-
         return BookDTO.builder()
                 .id(book.getId())
                 .title(book.getTitle())

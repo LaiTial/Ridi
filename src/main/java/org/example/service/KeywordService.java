@@ -38,41 +38,36 @@ public class KeywordService {
 
         keywordRepository.save(keyword);
 
-        // 2. 키워드가 저장될 카테고리를 조회 및 저장
-        List<CategoryKeyword> categoryKeywords = createKeywordDTO.getCategory().stream() // category 목록들 얻어오기
-                .map(categoryName -> {
-                    Category category = categoryRepository.findByName(categoryName)
-                            .orElseThrow(() -> new RidiException(ErrorCode.CATEGORY_NOT_FOUND));
+        // 2. 키워드가 저장될 카테고리를 조회
+        Category category = categoryRepository.findById(createKeywordDTO.getCategoryID()) // category ID 얻어오기
+                .orElseThrow(() -> new RidiException(ErrorCode.CATEGORY_NOT_FOUND));
 
-                    CategoryKeyword categoryKeyword = CategoryKeyword.builder()
-                            .category(category)
-                            .keyword(keyword)
-                            .build();
+        // 3. 키워드<-> 카테고리 저장
+        CategoryKeyword categoryKeyword = CategoryKeyword.builder()
+                .category(category)
+                .keyword(keyword)
+                .build();
 
-                    // 양방향 연관관계 설정
-                    category.getCategoryKeywords().add(categoryKeyword);
-                    keyword.getCategoryKeywords().add(categoryKeyword);
+        // 양방향 연관관계 설정
+        category.addCategoryKeyword(categoryKeyword);
+        keyword.addCategoryKeyword(categoryKeyword);
 
-                    return categoryKeyword;
-                })
-                .toList();
-
-        categoryKeywordRepository.saveAll(categoryKeywords);
-
+        categoryKeywordRepository.save(categoryKeyword);
     }
 
     // 해당 카테고리의 키워드 목록 찾기
     @Transactional(readOnly = true)
-    public Map<String, List<SectionKeywordListDTO>> getKeywordsByCategoryName(String name) {
+    public Map<String, List<SectionKeywordListDTO>> getKeywordsByCategory(Long id) {
 
         // 1. 카테고리명으로 해당 카테고리 탐색
-        Category category = categoryRepository.findByName(name)
+        Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RidiException(ErrorCode.CATEGORY_NOT_FOUND));
 
+        // 2. 해당 카테고리에 연결된 키워드들을 타입별로 묶어서 반환
         return category.getCategoryKeywords().stream() // category들의 keyword 리스트를 얻어서
-                .map(CategoryKeyword::getKeyword)
+                .map(CategoryKeyword::getKeyword)      // 키워드 추출
                 .collect(Collectors.groupingBy(
-                        Keyword::getType,
+                        Keyword::getType,              // type별로 groupying
                         Collectors.mapping(
                                 keyword -> new SectionKeywordListDTO(keyword.getId(), keyword.getName()),
                                 Collectors.toList()

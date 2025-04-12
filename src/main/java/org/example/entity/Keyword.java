@@ -30,19 +30,23 @@ public class Keyword {
     @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookKeyword> bookKeywords; // 키워드를 사용하는 책 목록들
 
+    // 카테고리 목록에 키워드 추가
     public void addCategoryKeyword(CategoryKeyword categoryKeyword) {
 
         if (this.categoryKeywords == null) {
             this.categoryKeywords = new ArrayList<>();
         }
-        this.categoryKeywords.add(categoryKeyword);
+        this.categoryKeywords.add(categoryKeyword); // 카테고리 목록에 키워드 추가
+        categoryKeyword.setKeyword(this); // keyword 세팅
     }
 
+    // 책 목록에 키워드 추가
     public void addBookKeyword(BookKeyword bookKeyword) {
 
         if (this.bookKeywords == null) {
             this.bookKeywords = new ArrayList<>();
         }
-        this.bookKeywords.add(bookKeyword);
+        this.bookKeywords.add(bookKeyword); // 책 목록에 키워드 추가
+        bookKeyword.setKeyword(this); // keyword 세팅
     }
 }

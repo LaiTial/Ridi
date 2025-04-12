@@ -28,7 +28,7 @@ public class BookService {
     public void createBook(CreateBookDTO createBookDTO) {
 
         // 1. 연관된 엔티티 조회
-        Category category = categoryRepository.findByName(createBookDTO.getCategory()) // 카테고리 조회
+        Category category = categoryRepository.findById(createBookDTO.getCategory()) // 카테고리 조회
                 .orElseThrow(() -> new RidiException(ErrorCode.CATEGORY_NOT_FOUND));
 
         Author author = authorRepository.findByPenName(createBookDTO.getAuthor()) // 작가 조회
@@ -52,21 +52,34 @@ public class BookService {
                 .publicationStatus(PublicationStatus.ACTIVE) // 신규 책이니까 Active 설정
                 .build();
 
+        // 양방향 연관관계 설정
+        author.addBook(book);
+        publisher.addBook(book);
+
         // 저장
         bookRepository.save(book);
 
         // 3. 키워드 저장 및 연결
         List<BookKeyword> bookKeywordList = createBookDTO.getKeywords().stream() // keyword 목록들 얻어오기
                 .map(keywords -> {
-                    Keyword keyword = keywordRepository.findByName(keywords)
+                    Keyword keyword = keywordRepository.findByName(keywords)   // 키워드 객체 찾기
                             .orElseThrow(() -> new RidiException(ErrorCode.KEYWORD_NOT_FOUND));
-                    return BookKeyword.builder()
+
+                    // Book<->Keyword 중간 테이블에 저장
+                    BookKeyword bookKeyword = BookKeyword.builder()
                             .book(book)
                             .keyword(keyword)
                             .build();
+
+                    // 양방향 관계 설정
+                    keyword.addBookKeyword(bookKeyword);
+                    book.addBookKeyword(bookKeyword);
+
+                    return bookKeyword;
                 })
                 .toList();
 
-        bookKeywordRepository.saveAll(bookKeywordList );
+
+        bookKeywordRepository.saveAll(bookKeywordList);
     }
 }
