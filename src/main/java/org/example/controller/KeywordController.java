@@ -3,7 +3,7 @@ package org.example.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.BookDTO;
 import org.example.dto.CreateKeywordDTO;
-import org.example.entity.Book;
+import org.example.dto.KeywordSearchDTO;
 import org.example.service.KeywordService;
 import org.example.service.SearchService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +30,7 @@ public class KeywordController {
 
     // 카테고리 ID로 검색하는 API
     @PostMapping("/search/keywords")
-    public List<BookDTO> searchBooksByKeywordIds(@RequestBody List<Long> keywordIds) {
-        return searchService.searchBooksByKeywordIds(keywordIds);
+    public List<BookDTO> searchBooksByKeywordIds(@RequestBody KeywordSearchDTO keywordSearchDTO) {
+        return searchService.searchBooksByKeywordIds(keywordSearchDTO);
     }
 }

@@ -31,6 +31,8 @@ public class VerificationService {
         return randomCode;
     }
 
+    // @Transactional 필요 여부 파악해보기
+    // @Transactional 격리 수준
     @Transactional
     public void checkVerificationCode(String verifyCode, String email) {
 
@@ -49,6 +51,5 @@ public class VerificationService {
 
         // 3. redis 에서 verification 코드 삭제
         redisService.deleteData(email);
-
     }
 }

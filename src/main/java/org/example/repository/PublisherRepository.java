@@ -1,7 +1,5 @@
 package org.example.repository;
 
-import org.example.entity.Author;
-import org.example.entity.Category;
 import org.example.entity.Publisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -2,6 +2,7 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.type.ReviewType;
 
 @Getter
 @Setter
@@ -31,5 +32,10 @@ public class Review extends Base{
     @Column(nullable = false)
     private String content;  // 리뷰 내용
 
-    // enum 댓글, 대댓글
+    @Column(nullable = false)
+    private ReviewType reviewType;  // 댓글 or 대댓글
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Review parentReview;  // 부모 리뷰 ID (대댓글일 경우만 값 존재)
 }

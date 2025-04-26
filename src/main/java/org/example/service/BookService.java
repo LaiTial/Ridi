@@ -6,7 +6,7 @@ import org.example.entity.*;
 import org.example.exception.ErrorCode;
 import org.example.exception.RidiException;
 import org.example.repository.*;
-import org.example.type.PublicationStatus;
+import org.example.type.Status;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,17 +44,13 @@ public class BookService {
                 .author(author)
                 .publisher(publisher)
                 .imageUrl(createBookDTO.getImageUrl())
-                .isbn(createBookDTO.getIsbn())
+                .isbn(createBookDTO.getIsbn()) // unique 좋은 생각 x
                 .description(createBookDTO.getDescription())
                 .wishlistCount(0)        // 관심작 0 설정
                 .rating(0.0)             // 별점 0 설정
-                .status(createBookDTO.getStatus()) // 연재 or 단행본
-                .publicationStatus(PublicationStatus.ACTIVE) // 신규 책이니까 Active 설정
+                .serialStatus(createBookDTO.getStatus()) // 연재 or 단행본
+                .status(Status.ACTIVE) // 신규 책이니까 Active 설정
                 .build();
-
-        // 양방향 연관관계 설정
-        author.addBook(book);
-        publisher.addBook(book);
 
         // 저장
         bookRepository.save(book);
@@ -62,7 +58,7 @@ public class BookService {
         // 3. 키워드 저장 및 연결
         List<BookKeyword> bookKeywordList = createBookDTO.getKeywords().stream() // keyword 목록들 얻어오기
                 .map(keywords -> {
-                    Keyword keyword = keywordRepository.findByName(keywords)   // 키워드 객체 찾기
+                    Keyword keyword = keywordRepository.findByNameAndCategory(keywords, category)   // 키워드 객체 찾기
                             .orElseThrow(() -> new RidiException(ErrorCode.KEYWORD_NOT_FOUND));
 
                     // Book<->Keyword 중간 테이블에 저장
@@ -81,5 +77,20 @@ public class BookService {
 
 
         bookKeywordRepository.saveAll(bookKeywordList);
+    }
+
+    // 책 판매 중단 처리를 하는 API
+    @Transactional
+    public void deactivateBook(Long id) {
+
+        // 관리자 권한 체크
+        // 그 일때만 허용
+
+        // 1. 지정한 book 객체 찾기
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new RidiException(ErrorCode.BOOK_NOT_FOUND));
+
+        // 2. 값 변경
+        book.setStatus(Status.INACTIVE); // 판매 중단 처리
     }
 }

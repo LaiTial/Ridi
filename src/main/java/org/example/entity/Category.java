@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -31,14 +30,4 @@ public class Category extends Base{
     @JsonIgnore
     @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> subCategories; // 하위 카테고리 리스트
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CategoryKeyword> categoryKeywords; // 카테고리 별 키워드들
-
-    // 키워드 목록 추가
-    public void addCategoryKeyword(CategoryKeyword categoryKeyword) {
-        this.categoryKeywords.add(categoryKeyword);
-        categoryKeyword.setCategory(this); // 카테고리 세팅
-    }
-
 }

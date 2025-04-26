@@ -3,6 +3,8 @@ package org.example.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,8 +27,5 @@ public class BookDetail extends Base{
     private Integer volume; // 책 순서 (1, 2, 3)
 
     @Column(nullable = false)
-    private Integer price; // 가격
-
-    @Column(nullable = false)
-    private String text; // 책 내용
+    private Long letterCount; // 글자 수
 }

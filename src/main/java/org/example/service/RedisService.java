@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class RedisService {
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
     private static final long DEFAULT_TTL = 3600L; // 1시간 (3600초)
 
     // 데이터 저장
@@ -23,7 +23,7 @@ public class RedisService {
     public Optional<String> getData(String key) {
 
         // Optional로 null 체크 강제하도록 반환
-        return Optional.ofNullable((String) redisTemplate.opsForValue().get(key));
+        return Optional.ofNullable(redisTemplate.opsForValue().get(key));
     }
 
     // 데이터 삭제

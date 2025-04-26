@@ -9,8 +9,6 @@ import org.example.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
@@ -33,7 +31,6 @@ public class CategoryService {
         Category category = Category.builder()
                 .name(categoryDTO.getName())
                 .parentCategory(parent)
-                .categoryKeywords(new ArrayList<>())
                 .build();
 
         // DB에 저장

@@ -8,6 +8,7 @@ import org.example.exception.RidiException;
 import org.example.repository.UserRepository;
 import org.example.security.JwtTokenProvider;
 import org.example.type.EmailVerifiedStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,15 +48,12 @@ public class AuthenticationService {
         return token;
     }
 
-    public void logout(String bearerToken) {
+    public void logout() {
 
-        // 1. Authorization 헤더에서 Bearer 토큰 추출
-        String token = bearerToken.substring(7);  // "Bearer " 부분을 제거한 후 토큰만 추출
+        // 1. 현재 로그인한 사용자 정보 조회
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        // 2. 토큰 내의 사용자 ID 가져오기
-        String username = jwtTokenProvider.getUsername(token);
-
-        // 3. Redis 토큰 삭제 처리
+        // 2. Redis 토큰 삭제 처리
         redisService.deleteData(username);
     }
 }

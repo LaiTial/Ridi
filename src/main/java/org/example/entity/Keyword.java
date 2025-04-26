@@ -24,21 +24,11 @@ public class Keyword {
     @Column(nullable = false)
     private String type; // 키워드 타입 (장르/소재/직업 등)
 
-    @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CategoryKeyword> categoryKeywords; // 키워드를 사용하는 카테고리들
+    @ManyToOne
+    private Category category; // 이 키워드가 속한 카테고리 (판타지/로판 등)
 
     @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookKeyword> bookKeywords; // 키워드를 사용하는 책 목록들
-
-    // 카테고리 목록에 키워드 추가
-    public void addCategoryKeyword(CategoryKeyword categoryKeyword) {
-
-        if (this.categoryKeywords == null) {
-            this.categoryKeywords = new ArrayList<>();
-        }
-        this.categoryKeywords.add(categoryKeyword); // 카테고리 목록에 키워드 추가
-        categoryKeyword.setKeyword(this); // keyword 세팅
-    }
 
     // 책 목록에 키워드 추가
     public void addBookKeyword(BookKeyword bookKeyword) {

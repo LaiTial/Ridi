@@ -2,8 +2,8 @@ package org.example.dto;
 
 import lombok.*;
 import org.example.entity.Book;
-import org.example.type.PublicationStatus;
 import org.example.type.SerialStatus;
+import org.example.type.Status;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,8 +24,8 @@ public class BookDTO {
     private String isbn;              // ISBN
     private String description;       // 책 소개
     private Double rating;            // 별점
-    private SerialStatus status;            // 연재 or 완결
-    private PublicationStatus publicationStatus; // 출간중 or 중단
+    private SerialStatus serialStatus;            // 연재 or 완결
+    private Status status; // 출간중 or 중단
     private List<SectionKeywordListDTO> keywords;    // 키워드 목록
 
     public static BookDTO fromEntity(Book book) {
@@ -43,8 +43,8 @@ public class BookDTO {
                 .isbn(book.getIsbn())
                 .description(book.getDescription())
                 .rating(book.getRating())
+                .serialStatus(book.getSerialStatus())
                 .status(book.getStatus())
-                .publicationStatus(book.getPublicationStatus())
                 .keywords(book.getBookKeywords().stream()
                         .map(SectionKeywordListDTO::fromEntity) // SectionKeywordListDTO의 fromEntity 메서드를 사용
                         .collect(Collectors.toList()))

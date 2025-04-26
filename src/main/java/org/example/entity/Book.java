@@ -2,8 +2,8 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.example.type.PublicationStatus;
 import org.example.type.SerialStatus;
+import org.example.type.Status;
 
 import java.util.List;
 
@@ -49,12 +49,15 @@ public class Book extends Base{
     @Column(nullable = false)
     private Double rating; // 별점 (기본값 0)
 
+    @Column(nullable = false)
+    private Integer ratingCount; // 별점을 등록한 사람 수
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private SerialStatus status; // 연재 or 완결
+    private SerialStatus serialStatus; // 연재 or 완결
 
     @Column(nullable = false)
-    private PublicationStatus publicationStatus; // 출간중 or 중단
+    private Status status; // 출간중 or 중단
 
     // ✅ mappedBy에 들어가는 건 "필드명"!
     @OneToMany(mappedBy = "books", cascade = CascadeType.ALL, orphanRemoval = true) // ✅ 일대다 관계
