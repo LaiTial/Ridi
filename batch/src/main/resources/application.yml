@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver    # MySQL 드라이버 클래스를 지정
+    url : jdbc:mysql://localhost:3306/ridi?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true    # MySQL 데이터베이스의 URL 지정
+    username: root  # MySQL 사용자 계정명
+    password: root  # 해당 사용자 계정의 비밀번호
+    hikari:
+      maximum-pool-size: 10    # 최대 연결 풀 크기를 10으로 설정
+      minimum-idle: 5          # 최소 유휴 연결 수를 5로 설정
+  jpa:
+    hibernate:
+      ddl-auto: update # validate : 현재 테이블과 JPA 구성이 일치하는 지 확인만 한다
+    properties:
+      hibernate:
+        show_sql: true # SQL 쿼리들을 콘솔에 출력
+        format_sql: true # 쿼리가 가독성 좋게 포맷
+  batch:
+    job:
+      enabled: false # 자동 실행 막고, 스케줄러로만 실행
+
+# 스케줄러 사용 설정
+# 이건 @EnableScheduling 붙이면 자동됨

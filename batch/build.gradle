@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+
+    // Spring Boot Framework 사용을 하기 위한 Spring Boot 플러그인 추가
+    id 'org.springframework.boot' version '3.4.4' // Spring Boot Framework 플러그인
+    id 'io.spring.dependency-management' version '1.1.7' // Spring Dependency 플러그인
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+// dependencies에 프로젝트에 필요한 의존성 추가
+dependencies {
+
+    implementation project(':common')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web' // web 관련 기능을 사용하기 위한 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA 구현을 위한 라이브러리
+
+    runtimeOnly 'com.mysql:mysql-connector-j' // docker의 mysql과 연결을 위한 라이브러리
+    implementation("org.springframework.boot:spring-boot-starter-batch") // Batch 기능 사용을 위한 라이브러리
+
+
+
+    // lombok을 위한 의존성 추가
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' // Test 관련 기능들을 사용하기 위한 라이브러리
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

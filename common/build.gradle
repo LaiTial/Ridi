@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+
+    // Spring Boot Framework 사용을 하기 위한 Spring Boot 플러그인 추가
+    id 'org.springframework.boot' version '3.4.4' // Spring Boot Framework 플러그인
+    id 'io.spring.dependency-management' version '1.1.7' // Spring Dependency 플러그인
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA 구현을 위한 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-web' // web 관련 기능을 사용하기 위한 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-mail' // 스프링에서 이메일 전송을 위한 라이브러리
+
+    runtimeOnly 'com.mysql:mysql-connector-j' // docker의 mysql과 연결을 위한 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis' // docker의 Redis과 연결을 위한 라이브러리
+
+    implementation 'org.springframework.boot:spring-boot-starter-security' // 스프링 시큐리티 사용을 위한 라이브러리
+    implementation 'io.jsonwebtoken:jjwt:0.12.3'  // JWT 토큰 사용을 위한 라이브러리
+    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config' // cloud vault 사용을 위한 라이브러리
+    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap' // bootstrap 사용을 위한 라이브러리
+
+    // QueryDSL 사용을 위한 라이브러리
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+
+    // lombok을 위한 의존성 추가
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+

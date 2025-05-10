@@ -1,2 +1,5 @@
 rootProject.name = 'RIDI'
+include 'common'
+include 'api'
+include 'batch'
 
