@@ -20,7 +20,7 @@ public class KeywordController {
     private final KeywordService keywordService;
     private final SearchService searchService;
 
-    // 새로운 카테고리 저장 API
+    // 새로운 키워드 저장 API
     @PutMapping("/api/keywords")
     public void createKeyword(
             @RequestBody CreateKeywordDTO createKeywordDTO // 요청으로 받은 카테고리 정보
@@ -28,7 +28,7 @@ public class KeywordController {
         keywordService.createKeyword(createKeywordDTO); // 키워드 생성 API
     }
 
-    // 카테고리 ID로 검색하는 API
+    // 검색할 키워드 목록을 받아 해당하는 책 반환
     @PostMapping("/search/keywords")
     public List<BookDTO> searchBooksByKeywordIds(@RequestBody KeywordSearchDTO keywordSearchDTO) {
         return searchService.searchBooksByKeywordIds(keywordSearchDTO);
