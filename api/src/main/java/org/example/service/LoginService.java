@@ -13,7 +13,6 @@ import org.example.repository.TermRepository;
 import org.example.repository.UserRepository;
 import org.example.type.EmailVerifiedStatus;
 import org.example.type.Role;
-import org.example.utils.EmailService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

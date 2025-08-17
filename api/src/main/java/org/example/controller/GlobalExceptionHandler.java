@@ -1,7 +1,10 @@
-package org.example.exception;
+package org.example.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.ErrorCode;
+import org.example.exception.ErrorResponse;
+import org.example.exception.RidiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;

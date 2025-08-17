@@ -15,11 +15,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 )
 
 @EntityScan(basePackages = {
-        "com.example.entity",  // 공통 엔티티
+        "org.example.entity",  // 공통 엔티티
 })
 @EnableJpaRepositories(basePackages = {
-        "com.example.repository",
-})
+        "org.example.repository"},
+        considerNestedRepositories = false  // nested Redis repo 후보 무시
+        )
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
