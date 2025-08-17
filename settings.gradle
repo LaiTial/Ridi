@@ -1,4 +1,4 @@
-rootProject.name = 'RIDI'
+rootProject.name = 'RiDi'
 include 'common'
 include 'api'
 include 'batch'

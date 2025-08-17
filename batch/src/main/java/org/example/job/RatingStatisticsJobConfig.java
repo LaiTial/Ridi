@@ -1,5 +1,6 @@
 package org.example.job;
 
+import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Book;
 import org.example.entity.Rating;
@@ -13,6 +14,8 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.JpaPagingItemReader;
+import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -37,27 +40,26 @@ public class RatingStatisticsJobConfig {
     @Bean
     public Step ratingStatisticsStep(
             JobRepository jobRepository,
-            PlatformTransactionManager transactionManager
+            PlatformTransactionManager transactionManager,
+            JpaPagingItemReader<Book> reader // Reader 주입 변경
     ) {
         return new StepBuilder("ratingStatisticsStep", jobRepository) // Step을 생성
                 .<Book, Book>chunk(100, transactionManager) // chunk를 DB에서 100건씩x 실제로 100건씩만 x
                 // 메모리를 잘라서
-                .reader(reader())  // 책별로 별점 통계 조회
+                .reader(reader)  // 책별로 별점 통계 조회
                 .processor(processor())  // 통계 가공
                 .writer(writer()) // DB 저장
                 .build();
     }
 
     @Bean
-    public ItemReader<Book> reader() {
-        return new ItemReader<>() {
-            private final Iterator<Book> books = bookRepository.findAll().iterator(); // 책 목록을 가져옵니다.
-            // 다 읽을 시 에러 // 성능 문제
-            @Override
-            public Book read() {
-                return books.hasNext() ? books.next() : null; // 책 하나씩 읽어옴
-            }
-        };
+    public JpaPagingItemReader<Book> reader(EntityManagerFactory entityManagerFactory) {
+        return new JpaPagingItemReaderBuilder<Book>()
+                .name("bookPagingReader") // Step 내 reader 이름
+                .entityManagerFactory(entityManagerFactory) // JPA 사용
+                .queryString("SELECT b FROM Book b") // 단순 조회 or join 포함 가능
+                .pageSize(100) // 100건씩 페이징 조회 → 메모리 효율
+                .build();
     }
 
 

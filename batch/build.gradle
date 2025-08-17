@@ -13,6 +13,10 @@ repositories {
     mavenCentral()
 }
 
+springBoot {
+    mainClass = 'org.example.Main'  // org.example 패키지에 있는 Main 클래스를 지정
+}
+
 // dependencies에 프로젝트에 필요한 의존성 추가
 dependencies {
 
@@ -33,6 +37,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test' // Test 관련 기능들을 사용하기 위한 라이브러리
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }

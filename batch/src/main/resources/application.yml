@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver    # MySQL 드라이버 클래스를 지정
-    url : jdbc:mysql://localhost:3306/ridi?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true    # MySQL 데이터베이스의 URL 지정
+    url : jdbc:mysql://localhost:3306/ridi?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useCursorFetch=true    # MySQL 데이터베이스의 URL 지정
     username: root  # MySQL 사용자 계정명
     password: root  # 해당 사용자 계정의 비밀번호
     hikari:

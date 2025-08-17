@@ -5,7 +5,7 @@ spring:
     host: smtp.naver.com        #smtp 서버 주소
     port: 465                   #메일 인증서버 포트
     username: sample@naver.com  #네이버 아이디
-    password: radixpop724##          #네이버 비밀번호
+    password: password          #네이버 비밀번호
     from : sample@naver.com
     properties:
       mail:
@@ -28,6 +28,11 @@ spring:
       hibernate:
         show_sql: true # SQL 쿼리들을 콘솔에 출력
         format_sql: true # 쿼리가 가독성 좋게 포맷
+    open-in-view: false # REST API 단일 프젝이라 View 렌더링 필요 x
   redis:
     host: localhost   # 이 컴퓨터와 연결
     port: 6379        # 포트 번호는 6379
+  data:
+    redis:
+      repositories:
+        enabled: false # Redis는 캐시 용도니까 Repository 스캔 필요 x 꺼버리기
