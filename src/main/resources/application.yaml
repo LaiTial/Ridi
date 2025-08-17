@@ -1,0 +1,15 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: sample@naver.com
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
