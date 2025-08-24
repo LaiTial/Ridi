@@ -31,7 +31,6 @@ public class SearchService {
         QBookKeyword bookKeyword = QBookKeyword.bookKeyword;
 
         // 3. QueryDSL로 검색
-
         List<Long> bookIds = queryFactory.select(book.id)
                 .from(book)
                 .join(book.bookKeywords, bookKeyword)

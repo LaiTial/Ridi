@@ -30,3 +30,6 @@
 - Batch 기능 구현시 오류 해결
 - Mail 기능과 Vault 기능 API로 이동
 - common과 api, batch를 좀 더 명확히 분리
+- QueryDSL 오류 개선
+- 가짜 DB 자동으로 1000개 생성 코드 만들기
+- Locust로 부하 테스트 후 성능 개선 17초->0.032초 500배 성능 개선
