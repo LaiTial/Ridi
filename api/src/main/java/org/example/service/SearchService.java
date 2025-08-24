@@ -31,16 +31,23 @@ public class SearchService {
         QBookKeyword bookKeyword = QBookKeyword.bookKeyword;
 
         // 3. QueryDSL로 검색
-        List<Book> books = queryFactory.selectFrom(book)
+
+        List<Long> bookIds = queryFactory.select(book.id)
+                .from(book)
                 .join(book.bookKeywords, bookKeyword)
                 .where(bookKeyword.keyword.id.in(keywordSearchDTO.getKeywordIds())) // 지정한 키워드 ID를 가진 책만 조회
                 .groupBy(book.id) // 책 ID 기준으로 그룹화
                 .having(bookKeyword.keyword.count().eq((long) keywordSearchDTO.getKeywordIds().size())) // 해당 책이 keywordIds에 해당하는 키워드를 모두 가지고 있는 경우만 필터링
                 .offset(pageable.getOffset()) // 페이징 처리 : offset 설정
                 .limit(pageable.getPageSize()) // 페이징 처리 : 한 페이지에 표시할 데이터의 개수 설정
-                .limit(10) // 페이징 처리 : 10건만
                 .fetch();
 
+        List<Book> books = queryFactory
+                .selectFrom(book)
+                .distinct()
+                .join(book.bookKeywords, bookKeyword).fetchJoin()
+                .where(book.id.in(bookIds))
+                .fetch();
         return books.stream()
                 .map(BookDTO::fromEntity)
                 .toList();
