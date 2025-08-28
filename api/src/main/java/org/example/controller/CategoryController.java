@@ -18,7 +18,7 @@ public class CategoryController {
     private final KeywordService keywordService;
 
     // 새로운 카테고리 저장 API
-    @PutMapping("/create/category")
+    @PutMapping("/category")
     public void createCategory(
             @RequestBody CategoryDTO categoryDTO // 요청으로 받은 카테고리 정보
     ) {
@@ -26,7 +26,7 @@ public class CategoryController {
     }
 
     // 카테고리 별 키워드 목록 반환 API
-    @GetMapping("/keywords/by-category")
+    @GetMapping("/api/keywords/by-category")
     public Map<String, List<SectionKeywordListDTO>> getKeywordsByCategoryName(@RequestParam Long id) {
         return keywordService.getKeywordsByCategory(id);
     }

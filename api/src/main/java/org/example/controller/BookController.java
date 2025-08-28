@@ -12,7 +12,7 @@ public class BookController {
     private final BookService bookService;
 
     // 새로운 책 정보를 저장하는 API
-    @PutMapping("/create/books")
+    @PutMapping("/book")
     public void createBooks(
             @RequestBody CreateBookDTO createBookDTO
             ) {
@@ -20,7 +20,7 @@ public class BookController {
     }
 
     // 책 판매 중지 처리를 하는 API
-    @DeleteMapping("/books/deactivate")
+    @DeleteMapping("/book/deactivate")
     public void deactivateBook(
             @RequestParam Long id
     ) {

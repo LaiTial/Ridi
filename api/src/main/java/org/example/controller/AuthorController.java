@@ -29,7 +29,7 @@ public class AuthorController {
     }
 
     // 작가가 출간한 책 중에서 현재 판매 상태인 책만 조회하는 API
-    @GetMapping("/author/book-list/active")
+    @GetMapping("/books/author-book/active")
     public List<BookDTO> getActiveBooksByAuthor(@RequestParam Long id) {
         return authorService.findActiveBooksByAuthor(id);
     }

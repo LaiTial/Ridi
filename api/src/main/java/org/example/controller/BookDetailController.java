@@ -13,7 +13,7 @@ public class BookDetailController {
 
     private final BookDetailService bookDetailService;
 
-    @PutMapping("/add/new-book")
+    @PutMapping("/book/add/new-book")
     public void saveBookDetails(@RequestBody BookDetailDTO bookDetailDTO) {
 
     }

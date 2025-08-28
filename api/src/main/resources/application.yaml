@@ -36,3 +36,7 @@ spring:
     redis:
       repositories:
         enabled: false # Redis는 캐시 용도니까 Repository 스캔 필요 x 꺼버리기
+
+logging:
+  level:
+    org.springframework.mail: DEBUG

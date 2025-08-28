@@ -52,7 +52,24 @@ public class SecurityConfig {
                 // 인증이 필요한 url 설정
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers("/login/**", "/auth/**", "/signup/verification-code/verify").permitAll() // 이 url은 인증 필요하지 않음
+                                .requestMatchers(
+                                        "/login/**", // 회원가입 API 전부
+                                        "/auth/login", // 로그인 API
+                                        "/signup/verification-code/verify", // 이메일 인증 API
+                                        "/books/**", // 조회 API
+                                        "/api/**" // 키워드 조회 API
+                                        ).permitAll() // 이 url은 인증 필요하지 않음
+                                .requestMatchers(
+                                        "/book/**", // 신규 책 등록+삭제 관련된 모든 API
+                                        "/publishers/**", // 신규 출판사 등록+판매 중지 관련된 모든 API
+                                        "/authors/**", // 신규 책 등록+판매 중지 관련된 모든 API,
+                                        "/category/**", // 신규 카테고리 등록+삭제 관련 모든 API,
+                                        "/keywords/**" // 신규 키워드 등록+삭제 관련 모든 API,
+                                ).hasRole("ADMIN").
+                                requestMatchers(
+                                        "/ratings/**", // 별점 API
+                                        "/reviews/**" // 댓글 API
+                                ).hasRole("USER")
                                 .anyRequest().authenticated() // 나머지 요청은 인증된 사용자만 접근 가능
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // JWT 인증 필터 추가

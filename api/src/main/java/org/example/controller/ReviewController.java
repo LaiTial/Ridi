@@ -15,13 +15,13 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     // 1. 새로운 리뷰 등록
-    @PutMapping("/books/user-reviews/registers")
+    @PutMapping("/reviews/new-registers")
     public void createReview(@RequestBody ReviewDTO reviewDTO) {
         reviewService.createReview(reviewDTO);
     }
 
     // 2. 리뷰 삭제
-    @DeleteMapping("/delete/reviews")
+    @DeleteMapping("/reviews/delete")
     public void deleteReview(@RequestParam Long reviewId) {
         reviewService.deleteReview(reviewId);
     }
@@ -33,7 +33,7 @@ public class ReviewController {
     }
 
     // 4. 댓글 목록 조회 (페이징, 정렬)
-    @GetMapping("/books/reviews/list")
+    @GetMapping("/books/reviews")
     public Page<Review> getComments(@RequestParam Long bookId,
                                     @RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size,
@@ -42,7 +42,7 @@ public class ReviewController {
     }
 
     // 5. 대댓글 목록 조회 (페이징)
-    @GetMapping("/books/reviews/replies/list")
+    @GetMapping("/books/reviews/replies")
     public Page<Review> getReplies(@RequestParam Long parentReviewId,
                                    @RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "10") int size) {

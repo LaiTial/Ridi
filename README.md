@@ -41,11 +41,11 @@
   - 요청 처리 시간이 약 17초 등 과도하게 길어지고, RPS 85 → 20-30으로 감소
 
 - 성능 튜닝:
-- (book, keyword)를 묶은 복합 인덱스 지정
-- Grouby+Having절 -> Not Exist 절을 사용해 DB 쿼리 튜닝
+  - (book, keyword)를 묶은 복합 인덱스 지정
+  - Grouby+Having절 -> Not Exist 절을 사용해 DB 쿼리 튜닝
 
 - 결과 : 
-- 평균 응답 시간이 약 17초 → 0.03초, 약 500배 성능 향상
+  - 평균 응답 시간이 약 17초 → 0.03초, 약 500배 성능 향상
   
 
 ## ERD
@@ -55,6 +55,9 @@
 https://www.notion.so/DB-25251952602a8064b4e1edfa19afe005
 ## API 문서
 https://www.notion.so/API-1a351952602a80639404fa3efeb5327f
+
+## Pull Request
+### 1. 
 
 ## locust을 활용한 부하테스트 진행
 ![locust_graph.png](images%2Flocust_graph.png)

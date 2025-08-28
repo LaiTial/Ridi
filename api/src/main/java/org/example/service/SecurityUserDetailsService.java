@@ -25,8 +25,8 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
         return new org.springframework.security.core.userdetails.User(
                 user.getLoginId(),   // 로그인 ID
-                user.getPassword(),  // 비밀번호
-                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name())) // 권한
+                null,
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())) // 권한
         );
     }
 }
